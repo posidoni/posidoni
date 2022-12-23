@@ -13,6 +13,6 @@
 ---
 ### Contacts
 - Languages: English (C1), Russian (native)
-- TG: @mikhailnkuz
+- TG: [@mikhailnkuz](https://t.me/mikhailnkuz)
 - Email: mikhail.n.kuznetsov@gmail.com
 - Currently based in Tbilisi, Georgia
