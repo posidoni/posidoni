@@ -8,11 +8,9 @@
     - delivering useful, high quality products
     - [UNIX philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)
     - `CLI` + `Neovim` workflow. You can find my configs [here](https://github.com/posidoni/myrc)
-    - Proudly improving my Computer Science knowledge as a part of Ecole42 / SC21 community
 
 ---
 ### Contacts
 - Languages: English (C1), Russian (native)
 - Telegram: [@mikhailnkuz](https://t.me/mikhailnkuz)
 - Email: mikhail.n.kuznetsov@gmail.com
-- Currently based in Tbilisi, Georgia
