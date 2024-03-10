@@ -1,4 +1,4 @@
-## Hello, I'm Mikhail!
+## Hello, I'm Mike!
 
 ---
 ### Contacts
