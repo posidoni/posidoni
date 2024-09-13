@@ -1,7 +1,9 @@
-## Hello, I'm Mike!
+## Hello, my name is Mike!
 
----
-### Contacts
-- Languages: English (C1)
-- Telegram: [@mikhailnkuz](https://t.me/mikhailnkuz)
-- Email: mikhail.n.kuznetsov@gmail.com
+## Contacts
+
+> Feel free to reach me out with any questions using contacts below.
+
+- Languages: English (fluent), Russian (native), TZ is UTC+1, _encoding=UTF-8_
+- [Email](`mailto:mike.n.kuznetsov@gmail.com`): `mike.n.kuznetsov@gmail.com`
+- [Telegram](https://t.me/mikhailnkuz): `@mikhailnkuz`
