@@ -42,8 +42,8 @@ However, besides job stuff I feel like I actually deeply love what I'm doing :)
 - [POV: I'm on my third coffee and you just asked me how the internet works](https://www.youtube.com/watch?v=jjKFXlFNR4E&t=231s&ab_channel=fasterthanlime)
 
 - I have gave Nix & NixOS a fair change for 3 weeks, but I'm not sure they
-actually solve problems they actually solve problems they claim to solve.
-(maybe I missed proper intro by @alurm, who knows..)
+  actually solve problems they actually solve problems they claim to solve.
+  (maybe I missed proper intro by @alurm, who knows..)
 
 ## Blog
 
@@ -63,7 +63,7 @@ actually solve problems they actually solve problems they claim to solve.
     these things as I did 😅
 
 - tbd: why FZF-go should be forked (sorry, I use fzf daily and love it, the algo
-is great, but the CLI experience ...)
+  is great, but the CLI experience ...)
     - terrible go code, not  the core algo, but CLI experience - just terrible
     - terrible code => panics everywhere => fails silently => hard to debug
     - terrible devex with super long `--abcdd` options
@@ -81,10 +81,8 @@ is great, but the CLI experience ...)
     outdated..
 
 - tbd: `hype that 'devs are no longer needed`
-    - doesnt match my experience as a reasonably skilled mid+/senior engineer
-    (not about code, but about
-
-
+    - doesn't match my experience as a reasonably skilled mid+/senior engineer
+        (not about code, but about
 
 ## My Contacts
 
