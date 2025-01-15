@@ -82,7 +82,7 @@ However, besides job stuff I feel like I actually deeply love what I'm doing :)
 
 - tbd: `hype that 'devs are no longer needed`
     - doesn't match my experience as a reasonably skilled mid+/senior engineer
-        (not about code, but about
+        (it was never about 'coding', but about inventing reasonable solution with regards to features/NFRs/etc. - buy maybe I'm lucky)
 
 ## My Contacts
 
