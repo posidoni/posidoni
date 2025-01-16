@@ -62,28 +62,6 @@ However, besides job stuff I feel like I actually deeply love what I'm doing :)
     discord UX. Also there is a chance you will fall in love intro reversing
     these things as I did 😅
 
-- tbd: why FZF-go should be forked (sorry, I use fzf daily and love it, the algo
-  is great, but the CLI experience ...)
-    - terrible go code, not  the core algo, but CLI experience - just terrible
-    - terrible code => panics everywhere => fails silently => hard to debug
-    - terrible devex with super long `--abcdd` options
-    - not an easy to use programmatic go pkg API. Everything in one package - oh no 🙄
-    - go code is so terrible & outdated, that  complete rewrite would be better
-    - I see several minor optimizations by just making code slightly better
-    - making `--abcd` flags into actual API and separate binaries for users
-    (from my estimation, no benchmarks yet) would dramatically improve
-    performance in some cases
-    - http api is .. 💀 not that good.
-
-    why fork this project and not `fzy` (c) or `skim` (rust) ? Because of skill
-    issue of course. Actually, it's easier to fork it + it has really good
-    algorithm that I see no reason to change - it's just the wrapper is really
-    outdated..
-
-- tbd: `hype that 'devs are no longer needed`
-    - doesn't match my experience as a reasonably skilled mid+/senior engineer
-        (it was never about 'coding', but about inventing reasonable solution with regards to features/NFRs/etc. - buy maybe I'm lucky)
-
 ## My Contacts
 
 Feel free to reach me out with any questions, feedback or just to say hi.
