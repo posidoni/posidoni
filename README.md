@@ -4,10 +4,7 @@ I am a Software Engineer (Backend — Go, TypeScript) with domain knowledge in F
 
 ## Job
 
-- TLDR: actively looking for a job now. 4 years YoE (mostly as Go/TS Backend in 2 BigTechs), 1+ years in DeFi at `GotBit.io HF`.
-
-- Remote/hybrid/on-site: `MENA 🇦🇪 , EU 🇪🇺 (+Cyprus 🇨🇾, +Turkey)` ❤️ (I'm close
-to these TZs and have no problems with relocation). Also - 🇺🇸 & 🇧🇷, but I'm far away, maybe remote-only/relocation.
+- Now I work at [Blum](https://t.me/Blum) in Telegram Mini App team. I am directly responsible for a wide range of TMA features and my work contributes to fair & responsible trading experience for crypto 😊
 
 ### Career highlights:
 
@@ -48,37 +45,16 @@ However, besides job stuff I feel like I actually deeply love what I'm doing :)
 ## Blog
 
 - [My Journey to Saga (2025/01/13)](./blog/My_Journey_To_Understanding_Saga_2025_01_13_07_25.md)
-    - About: this blogpost is my journey to how I finally understood Saga microservices design pattern with 0 magic 🙂 Quite funny, that I have seen it or implemented myself  throughout the years, but just didn't know the fancy name. Now I've written a short article to help other engineers figure it out.
-    - Prerequisites: know basics of microservices arch, generally be familiar with idempotency, ACID in RDBMS, network  IO & related issues that follow network.
-    - Read time: ~10 minutes
-    - Why Read: It would be awesome if you didn't understand the pattern before, but this text helped you grok it 🎉  I have actually worked with them since day 1 of my career, but no one in team called it like that. I think this shows that the concept it quite powerful. But definitely it requires respect to software complexity, it may
-    be easy to over-use them.
-
 - [Discord Antifraud UX — Case Study](./blog/Discord_Antifraud_UX_Reverse.md)
-    - About: a small case study about the discord antifraud UX
-    - Prerequisites: none
-    - Read time: ~2 minutes
-    - Output: this article gives basic info what is antifraud, my opinion on the
-    discord UX. Also there is a chance you will fall in love intro reversing
-    these things as I did 😅
 
 ## My Contacts
 
 Feel free to reach me out with any questions, feedback or just to say hi.
 Errata is also appreciated 🙏
 
-Feel free to talk to me in:
-
-— English (C1) - my eng. speaking friends call me Mike
-— Russian (native) -  my Russian name is Misha (Mikhail)
-
-Using these contacts (telegram is strongly preferred):
+Languages: English — C1, Russian — Native.
 
 - [Telegram - @mikhailnkuz](https://t.me/mikhailnkuz)
-- [My Telegram Channel - @mikhailnkuz_channel](https://t.me/mikhailnkuz_channel)
-- [LinkedIn - /in/mikenk/](https://www.linkedin.com/in/mikenk/)
 - [Mail: mike.n.kuznetsov@gmail.com](mailto:mike.n.kunetsov@gmail.com)
-- [42 Alumni - @posidoni](https://42.fr/en/homepage/) (@posidoni is just a random handle I've got at 42 and quite liked)
 
 Notice: all opinions are my own and not the views of my employer/contract counterparty (past or present) or any other entity I'm affiliated with.
-Do your own research.
