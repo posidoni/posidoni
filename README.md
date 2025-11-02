@@ -4,7 +4,7 @@ I am a Software Engineer (Backend — Go, TypeScript) with domain knowledge in F
 
 ## Job
 
-- Now I work at [Blum](https://t.me/Blum) in Telegram Mini App team. I am directly responsible for a wide range of TMA features and my work contributes to fair & responsible trading experience for crypto 😊
+- Now I work at inDrive.
 
 ### Career highlights:
 
