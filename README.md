@@ -1,10 +1,12 @@
-# Hi, my name is Mike!
+# Hi, my name is Misha!
 
 I am a Software Engineer (Backend — Go, TypeScript) with domain knowledge in FinTech, DeFi and e-commerce.
 
 ## Job
 
 - Now I work at inDrive.
+
+<details>
 
 ### Career highlights:
 
@@ -27,6 +29,7 @@ payment traffic.
 - Throughout the years, I've became pretty good at the so called `DevSecOps` -
 you can check out my linked in to see the work in this sphere. Honestly, I
 believe this is what every developer had to do.
+
 
 ## Hobby
 
@@ -52,9 +55,8 @@ However, besides job stuff I feel like I actually deeply love what I'm doing :)
 Feel free to reach me out with any questions, feedback or just to say hi.
 Errata is also appreciated 🙏
 
-Languages: English — C1, Russian — Native.
+Languages: English — C2, Russian — Native.
 
 - [Telegram - @mikhailnkuz](https://t.me/mikhailnkuz)
-- [Mail: mike.n.kuznetsov@gmail.com](mailto:mike.n.kunetsov@gmail.com)
 
 Notice: all opinions are my own and not the views of my employer/contract counterparty (past or present) or any other entity I'm affiliated with.
