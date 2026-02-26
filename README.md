@@ -1,6 +1,8 @@
 # Hi, my name is Misha!
 
-I am a Software Engineer (Backend — Go, TypeScript) with domain knowledge in FinTech, DeFi and e-commerce.
+I am a Software Engineer.
+
+I specialize in Backend (Go, TypeScript), Systems Engineering and have domain knowledge in FinTech, Web3 (DeFi) and e-commerce.
 
 ## Job
 
