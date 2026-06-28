@@ -1,64 +1,56 @@
-# Hi, my name is Misha!
+# Hi, I'm Misha 👋
 
-I am a Software Engineer.
+### Senior Backend Engineer (Go) · High-Scale Distributed Systems
 
-I specialize in Backend (Go, TypeScript), Systems Engineering and have domain knowledge in FinTech, Web3 (DeFi) and e-commerce.
+[![Open to Work](https://img.shields.io/badge/Open_to_Work-Senior_Go_Backend_·_Remote-2ea44f?style=flat-square)](mailto:mikhail.n.kuznetsov@gmail.com)
+[![Email](https://img.shields.io/badge/Email-mikhail.n.kuznetsov-26428b?style=flat-square&logo=gmail&logoColor=white)](mailto:mikhail.n.kuznetsov@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-mikenk-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/mikenk)
+[![Telegram](https://img.shields.io/badge/Telegram-mikhailnkuz-26A5E4?style=flat-square&logo=telegram&logoColor=white)](https://t.me/mikhailnkuz)
 
-## Job
+I build and operate **high-scale backend systems in Go** — the kind where latency, reliability and correctness directly move the product. 6+ years across large marketplaces and ride-hailing (**Ozon**, **Avito**, **inDrive**), payments & antifraud, and infrastructure / SRE. I like the hard, low-level parts: profiling, sharding, connection pooling, observability, and making services boringly reliable under load.
 
-- Now I work at inDrive.
+> 🔭 **Open to work** — Senior Go backend / infra / SRE roles, **remote**. Most recently at inDrive on the Pricing Platform. CV available on request — just email me.
 
-<details>
+## 🚀 What I've shipped
 
-### Career highlights:
+- 🗄️ **Zero-downtime database split** — split a ~1 TB monolithic database into **24 shards** with no downtime at **Ozon**, then sped up Kafka consumers/producers **2.5×** under tight resource quotas.
+- 🌍 **Real-time pricing at global scale** — owned services behind inDrive's *recommended price* across a system spanning **14 AWS EKS clusters**; added metrics, tracing and dashboards that sharply cut on-call time-to-diagnose.
+- 🛡️ **Payment antifraud from scratch** — built scoring covering **50%+ of payment traffic** at **Avito** (FinTech), and fixed a hidden PgBouncer/PostgreSQL bug that took daily credit-score recompute for **2M+ users** from **75% → 99.99%**.
+- 📈 **Scaled a Go service to 22M DAU** — rewrote a Telegram backend from a TypeScript MVP to Go (profiled with pprof / Jaeger), sustaining **200K concurrent** users; redesigned a **2.5 PB** ScyllaDB store down to ~100 TB.
+- 🔐 **DevSecOps by default** — GitOps with secret-scanning and linting gates in CI (`gitleaks`, `shellcheck`, `hadolint`), minimal hardened images. Honestly, I think most of this should just be every engineer's baseline.
+- ⛓️ **Blockchain infra (earlier on)** — tech-led two EVM chain forks on modified `go-ethereum`, plus multi-chain backend across EVM / Solana / TON. Fun systems work — these days my focus is mainstream high-scale backend & infra.
 
-- Sharded a 1TB monolithic database into 24 shards without downtime.
-- Acquired quite a strong expertise in professional optimization. Specifically,
-I've optimized gRPC handlers and Kafka consumers/producers. Either by
-low-level methods (pprof, metrics, etc.) or by refactoring architecture to
-eliminate bottlenecks.
+## 🛠️ Tech I reach for
 
-- I created and designed algorithmic copytraing system for a Base Chain (chain id 8453).
-- Deployed 2 blockchains from scratch - bootnodes, light-node and RPC EVM nodes
-on the base of AWS EC2 machines.
+**Languages:** Go (primary) · SQL · Python · TypeScript · a bit of Rust & C/C++
+**Data stores:** PostgreSQL (PgBouncer / Odyssey) · ScyllaDB · Kafka · Redis · ClickHouse · MongoDB
+**Infra & orchestration:** AWS · Kubernetes (EKS) · Helm · ArgoCD · Terraform · Temporal · Docker · Vault
+**Observability & CI/CD:** Prometheus · Grafana · Thanos · Jaeger · OpenTracing · GitHub Actions · GitLab CI
 
-- I always loved to bypass antifrauds and begin career in tech based on that.
-However, my dream basically came true and I've created an antifraud from scratch for
-Avito - largest classifieds in the world. Specifically, I'm responsible for
-hardcore research, design review, and implementation of antifraud of ~50%+
-payment traffic.
+## ☕ Beyond work
 
-- Throughout the years, I've became pretty good at the so called `DevSecOps` -
-you can check out my linked in to see the work in this sphere. Honestly, I
-believe this is what every developer had to do.
+I actually love this stuff outside of a job, too.
 
+- I share [Primeagen](https://www.youtube.com/@ThePrimeagen/videos)'s philosophy — the more you do something, the better you get, the more interesting it becomes. I've been lucky to have basically zero boring projects (well, except coding a `decimal.h` library in C11 with bit-shifts once — though I then used `decimal` types every day, so maybe that's karma 😁).
+- [TJ](https://www.youtube.com/@teej_dv/videos)'s talks pushed me to give Neovim a real shot a few years back. Been a happy user ever since — I can appreciate other editors, but Neovim is just too good (and I love what the team does with the architecture and RPC protocol).
+- Still my favourite take on how the internet works: [*"POV: I'm on my third coffee and you just asked me how the internet works"*](https://www.youtube.com/watch?v=jjKFXlFNR4E&t=231s).
+- I gave Nix & NixOS a fair 3-week chance, but I'm still not sure they solve the problems they claim to. (Maybe I missed a proper intro — who knows.)
 
-## Hobby
+## ✍️ Writing
 
-However, besides job stuff I feel like I actually deeply love what I'm doing :)
-
-- I kind of share the philosophy of [Primigean](https://www.youtube.com/@ThePrimeagen/videos) - the more you do something, the better you get at it, the more interesting it is to do it. I was lucky I had 0 'boring' projects ever, maybe besides a few very first educational ones (coding decimal library in C11 `decimal.h` with bit-shifts was a bit boring, but actually I've used `decimal` type every day at crypto. I think this is Karma 😁)
-
-- [TJ](https://www.youtube.com/@teej_dv/videos), especially his PDE Talk and tutorials ~3 years ago inspired me to give NeoVim a chance. Since that I'm a happy user of Neovim. I definitely can appreciate other editors, but NeoVim is just so good/extensive (and I also like what the team is doing with architecture, RPC protocol, etc.), that I see no reason to change.
-
-- [POV: I'm on my third coffee and you just asked me how the internet works](https://www.youtube.com/watch?v=jjKFXlFNR4E&t=231s&ab_channel=fasterthanlime)
-
-- I have gave Nix & NixOS a fair change for 3 weeks, but I'm not sure they
-  actually solve problems they actually solve problems they claim to solve.
-  (maybe I missed proper intro by @alurm, who knows..)
-
-## Blog
-
-- [My Journey to Saga (2025/01/13)](./blog/My_Journey_To_Understanding_Saga_2025_01_13_07_25.md)
+- [My Journey to Understanding Saga (2025-01-13)](./blog/My_Journey_To_Understanding_Saga_2025_01_13_07_25.md)
 - [Discord Antifraud UX — Case Study](./blog/Discord_Antifraud_UX_Reverse.md)
 
-## My Contacts
+## 📫 Reach me
 
-Feel free to reach me out with any questions, feedback or just to say hi.
-Errata is also appreciated 🙏
+Always happy to talk shop, take feedback, or just say hi. Errata appreciated too 🙏
 
-Languages: English — C2, Russian — Native.
+- 📧 **Email:** [mikhail.n.kuznetsov@gmail.com](mailto:mikhail.n.kuznetsov@gmail.com)
+- 💬 **Telegram:** [@mikhailnkuz](https://t.me/mikhailnkuz)
+- 💼 **LinkedIn:** [in/mikenk](https://linkedin.com/in/mikenk)
 
-- [Telegram - @mikhailnkuz](https://t.me/mikhailnkuz)
+**Languages:** English — C2 · Russian — Native
 
-Notice: all opinions are my own and not the views of my employer/contract counterparty (past or present) or any other entity I'm affiliated with.
+---
+
+<sub>All opinions are my own and not the views of any current or past employer, contract counterparty, or other affiliated entity.</sub>
