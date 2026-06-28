@@ -1,21 +1,21 @@
-# Hi, I'm Misha 👋
+# Hi, my name is Mikhail
 
 ### Senior Backend Engineer (Go) · High-Scale Distributed Systems
 
 [Email](mailto:mikhail.n.kuznetsov@gmail.com) · [LinkedIn](https://linkedin.com/in/mikenk) · [Telegram](https://t.me/mikhailnkuz)
 
-I build and operate **high-scale backend systems in Go** — the kind where latency, reliability and correctness directly move the product. 6+ years across large marketplaces and ride-hailing ([@ozontech](https://github.com/ozontech), [@avito-tech](https://github.com/avito-tech), [@inDriver](https://github.com/inDriver)), crypto & Web3 (Blum, [@GotBit](https://github.com/GotBit)), payments & antifraud, and infrastructure / SRE. I like the hard, low-level parts: profiling, sharding, connection pooling, observability, and making services boringly reliable under load.
+I build and operate **high-scale backend systems in Go** — the kind where latency, reliability and correctness directly move the product. 6+ years across large marketplaces and ride-hailing ([@ozontech](https://github.com/ozontech), [@avito-tech](https://github.com/avito-tech), [@inDriver](https://github.com/inDriver)), crypto & Web3 (Blum, GotBit), payments & antifraud, and infrastructure / SRE. I like the hard, low-level parts: profiling, sharding, connection pooling, observability, and making services boringly reliable under load.
 
 > 🔭 **Open to work** — Senior Go backend / infra / SRE roles, **remote**. Most recently at inDrive on the Pricing Platform. CV available on request — just email me.
 
 ## 🚀 What I've shipped
 
-- 🗄️ **Zero-downtime database split** — split a ~1 TB monolithic database into **24 shards** with no downtime at **Ozon**, then sped up Kafka consumers/producers **2.5×** under tight resource quotas.
+- 🗄️ **Zero-downtime database split** — split a ~1 TB monolithic database into **24 shards** with no downtime at **[Ozon](https://en.wikipedia.org/wiki/Ozon)** — one of Russia's largest e-commerce platforms (NASDAQ IPO 2020) — then sped up Kafka consumers/producers **2.5×** under tight resource quotas.
 - 🌍 **Real-time pricing at global scale** — owned services behind inDrive's *recommended price* across a system spanning **14 AWS EKS clusters**; added metrics, tracing and dashboards that sharply cut on-call time-to-diagnose.
-- 🛡️ **Payment antifraud from scratch** — built scoring covering **50%+ of payment traffic** at **Avito** (FinTech), and fixed a hidden PgBouncer/PostgreSQL bug that took daily credit-score recompute for **2M+ users** from **75% → 99.99%**.
+- 🛡️ **Payment antifraud from scratch** — built scoring covering **50%+ of payment traffic** at **[Avito](https://en.wikipedia.org/wiki/Avito.ru)** — one of the world's most-visited classifieds platforms — and fixed a hidden PgBouncer/PostgreSQL bug that took daily credit-score recompute for **2M+ users** from **75% → 99.99%**.
 - 📈 **Scaled a Go service to 22M DAU** — at **Blum**, a Telegram-based crypto exchange, rewrote the launcher-bot backend from a TypeScript MVP to Go (profiled with pprof / Jaeger), sustaining **200K concurrent** users; shipped a Telegram Stars payment gateway and redesigned a **2.5 PB** ScyllaDB store down to ~100 TB.
 - 🔐 **DevSecOps by default** — GitOps with secret-scanning and linting gates in CI (`gitleaks`, `shellcheck`, `hadolint`), minimal hardened images. Honestly, I think most of this should just be every engineer's baseline.
-- ⛓️ **Blockchain infra & multi-chain backend** — at [@GotBit](https://github.com/GotBit) (crypto market maker) tech-led two live EVM chain forks on modified `go-ethereum` (managed across 24 servers), and shipped backend across EVM / Solana / TON — including a Dedust (TON DEX) SDK that enabled market-making on the network.
+- ⛓️ **Blockchain infra & multi-chain backend** — at **GotBit**, a major crypto market maker (140+ specialists, 50+ token launches), tech-led two live EVM chain forks on modified `go-ethereum` (managed across 24 servers), and shipped backend across EVM / Solana / TON — including a Dedust (TON DEX) SDK that enabled market-making on the network.
 
 ## 🛠️ Tech I reach for
 
