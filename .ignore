@@ -1,0 +1,9 @@
+# Generic search ignore; keep aligned with .fdignore/.rgignore.
+.git/
+.claude/
+.codex/
+.DS_Store
+tmp/
+__pycache__/
+*.pyc
+*.log

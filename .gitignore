@@ -1,5 +1,16 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 
+# Local assistant/editor state
+.claude/settings.json
+.claude/settings.local.json
+.claude/
+.codex/
+.DS_Store
+*.log
+tmp/
+__pycache__/
+*.py[cod]
+
 # This extension is output by `exiftool`
 *.original
