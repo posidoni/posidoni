@@ -16,6 +16,7 @@ I build and operate **high-scale backend systems in Go** — the kind where late
 - 📈 **Scaled a Go service to 22M DAU** — at **Blum**, a Telegram-based crypto exchange, rewrote the launcher-bot backend from a TypeScript MVP to Go (profiled with pprof / Jaeger), sustaining **200K concurrent** users; shipped a Telegram Stars payment gateway and redesigned a **2.5 PB** ScyllaDB store down to ~100 TB.
 - 🔐 **DevSecOps by default** — GitOps with secret-scanning and linting gates in CI (`gitleaks`, `shellcheck`, `hadolint`), minimal hardened images. Honestly, I think most of this should just be every engineer's baseline.
 - ⛓️ **Blockchain infra & multi-chain backend** — at **GotBit**, a major crypto market maker (140+ specialists, 50+ token launches), tech-led two live EVM chain forks on modified `go-ethereum` (managed across 24 servers), and shipped backend across EVM / Solana / TON — including a Dedust (TON DEX) SDK that enabled market-making on the network.
+- 🤖 **AI-agentic open-source tooling** — built [shell-skill](https://github.com/posidoni/shell-skill), where every rule ships as a CI-checked runnable example instead of asserted advice; content was produced through a multi-agent research workflow (parallel agents against primary sources — kernel man pages, official docs — under a cite-or-don't-write-it discipline) and packaged as an installable Claude Code plugin.
 
 ## 🛠️ Tech I reach for
 
@@ -24,6 +25,7 @@ I build and operate **high-scale backend systems in Go** — the kind where late
 **Infra & orchestration:** AWS · Kubernetes (EKS) · Helm · ArgoCD · Terraform · Temporal · Docker · Vault
 **Observability & CI/CD:** Prometheus · Grafana · Thanos · Jaeger · OpenTracing · GitHub Actions · GitLab CI
 **Web3:** EVM & `go-ethereum` internals · Solidity · Solana · TON · DEX & ERC-20/721/1155 integrations
+**AI-agent tooling:** Claude Code · multi-agent research workflows · agent skills
 
 ## ☕ Beyond work
 
