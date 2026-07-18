@@ -23,27 +23,37 @@ very sophisticated scoring system with ML models.
 
 However, it was nice to uncover one of the rules as it was actually implemented.
 
-## Conclusions
+## What this reveals
 
-### Sad ones
+### Trade-offs
 
 - This kind of UX wasn't helpful. I'm not sure antifraud should deceive
   legitimate users in such a bad way :( It worked for my friend, but this
   clearly doesn't work against professional fraud specialists. Based on this,
   I'm generally against this kind of UX in Avito.
 
-- For any kind of GeoBlocks 😶, please allow people to use different IP
+- For any kind of geoblocking 😶, please allow people to use different IP
   addresses and phone numbers, and respect their privacy. It's kind of insane
   that Discord doesn't allow digital nomads to register there. People in
   Thailand don't use their home phone numbers all the time, do they?
 
-### Happy ones
+### What was useful
 
-- Now we know super specific details of Discord Antifraud.
+- We now have a concrete example of a Discord antifraud signal.
 
 - Reverse-engineering antifraud systems is, well, really fun. I've sometimes
   wished I were developing an anti-detect browser instead, because this is so
   much harder and more fun.
+
+```mermaid
+flowchart LR
+    IP[IP country A] --> S{Antifraud signal}
+    PHONE[Phone country B] --> S
+    S -->|mismatch| BLOCK[Verification blocked]
+    IP2[IP country A] --> S2{Same signal}
+    PHONE2[Phone country A] --> S2
+    S2 -->|match| ALLOW[Verification allowed]
+```
 
 ## Side Note
 

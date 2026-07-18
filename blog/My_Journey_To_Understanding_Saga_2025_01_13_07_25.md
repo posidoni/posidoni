@@ -1,12 +1,16 @@
-# Saga
+# Saga: Making Distributed Workflows Reliable
 
-The Saga design pattern is one of those concepts that can be challenging to grasp initially. I struggled with it myself, as I’m sure many other engineers do. However, after working in Avito, where the entire FinTech system is essentially a 3-tiered saga, I’ve developed a much deeper understanding of this pattern.
+The Saga design pattern is one of those concepts that can be challenging to
+grasp initially. I struggled with it myself. After working at Avito, where a
+large part of the FinTech system behaved like a three-layered saga, I developed
+a much deeper understanding of the pattern.
 
-In this article, I’ll share insights from my experience, walk you through common pitfalls, and provide a practical perspective on how to approach sagas effectively.
+This article explains the failure mode first, then builds a practical
+orchestration-based solution from it.
 
-## What problem do we constantly have while doing network IO?
+## The problem: two systems, one business operation
 
-I would define it as follows. We have 2 network calls:
+Imagine a workflow that needs both a remote API call and a database transaction:
 
 ```txt
 - call (A) - some call to other microservice. Let's say, it is a JSON RPC call
@@ -16,7 +20,7 @@ to EVM Full Node API issuing transaction broadcast.
 
 like:
 UPDATE, INSERT, DELETE ...
-At least in PSQL any single statement is wrapped in transaction.
+At least in PostgreSQL, any single statement runs inside a transaction.
 
 Usually, it may be something more difficult. Let's say:
 BEGIN;
@@ -28,17 +32,14 @@ ROLLBACK;
 COMMIT;
 ```
 
-## Question: is it possible to make this atomic?
+## Can we make this atomic?
 
-Short answer: no.
+No. Not across an unreliable network and a local database. Do not pretend that
+one transaction can cover both systems.
 
-Unsurprisingly, the short answer is: no. Absolutely not. Do not ever try.
+## Why the naive solution fails
 
-## But let's try anyway and start with naive solution
-
-### Naive solution: call the network inside the transaction
-
-If anything goes wrong, we roll back.
+### The naive solution: call the network inside the transaction
 
 **TL;DR:** this is a fatal mistake 🙂 Let me show you why.
 
@@ -51,47 +52,53 @@ If anything goes wrong, we roll back.
 ^^ At first glance, everything may seem fine here. But the devil is in the details.
 ```
 
-1. How long network call will take? Do we have any guarantees (SLAs)?
-If it takes too long and there are enough such requests, PSQL will hang,
-because there are not anough connections available to the DBs.
+1. How long will the network call take? Do we have any guarantees (SLAs)?
+If it takes too long and there are enough such requests, PostgreSQL will hang,
+because there are not enough connections available to the database.
 
-2. Why are we so sure application will not just shut down after B? No,
-really. And what will we have? Best case: uncommitted tx, but successful
-rpc call. At worst: again, DB will hang, for example if there are many
-txes stuck on this commit/rollback step.
+2. Why are we sure the application will not shut down after B? Best case: we
+   have an uncommitted transaction but a successful RPC call. At worst, the
+   database hangs because many transactions are stuck at commit or rollback.
 
-3. Ok, even if everything works fine, what if we have network segmentation?
-i.e. network is in principle unreliable (with all due regard to network
-engineers, this is just an assumption). What if we have a 'slow-lorry'
-style attack?
+3. Even if everything works fine, what if the network is segmented? The network
+   is unreliable by assumption. What if we face a slow-lorry-style attack?
 
-4. Also think about resilience and cascade failures. Here DB / network call
-are so tightly coupled that if one fails, this will lead to cascade
-failure. Even if e.g. (B) works perfectly fine and there are some DB
-issues.
+4. The database and network call are tightly coupled, so a failure in one can
+   create a cascade failure in the other.
 
-5. Also, here we have at least 3 round trips - do we actually want them?
-We want to just (1) update db; (2) do rpc (in any order). This scheme
-is so notorious for having low performance, that it is absolutely forbidden by
-Ozon DBAs.
+5. We have at least three round trips. Do we actually want them? We want to
+   update the database and make the RPC call, in either order. Holding a
+   database transaction across the network call is a well-known performance
+   hazard.
 
 Also, no fancy stuff will fix this schema. To name a few:
 
-* BEGIN STATEMENT TIMEOUT 10 sec; - generally, to me this is a good
+* `BEGIN STATEMENT TIMEOUT 10 sec` — generally, to me this is a good
 practice, also this is a decent starting point. However, still, it
 doesn't really solve anything. And for high load apps, in my opinion, such
 timeouts are a bad idea.
 
-* If you are writing golang, `defer func()  { ... tx }()` will not help
-either, as defer is not some kind of magic and won't help with network
-call received, but not acked.
+* If you are writing Go, `defer func() { ... tx }()` will not help either.
+  `defer` is not magic and cannot resolve a network call that was received but
+  not acknowledged.
 
-### What is _network segmentation_? Why network is _unreliable_?
+```mermaid
+sequenceDiagram
+    participant A as Service A
+    participant DB as PostgreSQL
+    participant B as Service B
+    A->>DB: BEGIN
+    A->>B: RPC request
+    B-->>A: Response may be lost
+    A->>DB: COMMIT or ROLLBACK
+```
+
+### Network failure is normal
 
 - This is actually quite simple concept. In my opinion, from the developer PoV
 it should be assumed that any network call is unreliable and may fail.
 
--  Demo 1. Simple case. Network call fails.
+- **Demo 1: the network call fails.**
 
 ```txt
 
@@ -119,12 +126,12 @@ lost/corrupted.
 
 ```
 
-- **Demo 2: a more realistic example where the network call succeeds, but we
+- **Demo 2: the network call succeeds, but we
   cannot accept the response.**
 
 ```txt
 
-[Server A] --- RPC REQUEEST -> [Server B]
+[Server A] --- RPC REQUEST -> [Server B]
 timeout = 1–9 ms
 ^^ 🚩 in real life, all requests have some sort of timeouts or deadlines.
 
@@ -147,19 +154,17 @@ lost,
 because the pod that had received them is dead and is replaced by the new one.
 ```
 
-## Do we have any hope?
+## A safer approach
 
-Yes, we have, and the solution is actually quite simple and elegant.
-However, please, note. It will  introduce some complexity.
+Yes. The solution is simple and elegant, but it introduces some complexity.
 
 Before reading to the solution, please, consider the following:
 
-1) Do you really need to have such strong atomicity? I mean, maybe you are
-developing in such domain, where it doesn't really matter. Also, these small
-amount of failed txes could be recovered - either by logs or by some automation.
+1. Do you really need such strong atomicity? Maybe you are working in a domain
+   where a small number of failed transactions can be recovered from logs or
+   automation.
 
-2) Can the system (network calls) designed in such a way, that  is safe to
-retry?
+2. Can the system be designed so that network calls are safe to retry?
 
 ```txt
 rpc call. __idempotent__. We can retry it as many time as we want, until
@@ -169,31 +174,30 @@ db transaction.
 ```
 
 
-In my opinion, the 2nd solution is preferred. Although it's still not always
+In my opinion, the second solution is preferable, although it is not always
 possible.
 
-## Saga
+## The Saga pattern
 
 > The term “saga” refers to Long Lived Transactions (LLT). The name “SAGA” comes from the concept of a long story with many parts, just like a distributed transaction. In a SAGA, each part of the story is a local transaction, and together, they form the complete story.
 
-Alright, let's define everything bit by bit.
+Let's define it step by step.
 
-### What is transaction?
+### What is a transaction?
 
--  First, let's figure our what is _transaction_ - a quite popular notion.
+- First, let's figure out what a _transaction_ is.
 
 * RDBMS transaction (like begin/commit/rollback). Yes, but this is too
 narrow. Transactions are possible even without RDBMS.
 
-* arbitrary financial action/will (in olschool fintech) or special public
-actions (e.g. native transfer,  contract calls, anything) in DeFi? No,
+* an arbitrary financial action (in old-school fintech) or a public blockchain
+  action (for example, a native transfer or contract call in DeFi)? No,
 also too narrow, limits scope to the very specific domains.
 
-* ⭐ some workflow in a single program or system of several programs (e.g. services).
-Sometimes this workflow may represent some end-to-end business logic, or
-just logically bound sequence of actions.  This workflow is intended to
-be _atomic_, have some kind of _lifecycle_ - like start, phase 1,2,3 and
-finish. It should not be arbitrary lost - every action matters
+* ⭐ a workflow in one program or across several programs (for example,
+  services). It may represent end-to-end business logic or a logically bound
+  sequence of actions. It is intended to be _atomic_, have a _lifecycle_, and
+  ensure that no important action is silently lost.
 
 I suggest us the 3rd definition. Let me illustrate it with my experience from
 Avito.
@@ -231,7 +235,7 @@ it works without major errors.
 
 ### How do we make something with 10 network calls _transactional_?
 
-Here, let's take a simpler example and make it into a saga.
+Here, let's take a simpler example and turn it into a saga.
 
 ```txt
 
@@ -242,14 +246,14 @@ available for purchase.
 3. check items measurements. are they ok?  if not, item is not
 available.
 
-4. send message to some service
+4. send a message to another service
 
-5. wait for async notification. if everything is ok, nice, item is
-createdf.
+5. wait for async notification. If everything is OK, the item is created.
 Commit? Rollback?
 ```
 
-- Suppose we need to design item creation flow. Logic is quite complex, handler
+- Suppose we need to design an item-creation flow. The logic is quite complex;
+  the handler
 `HTTP POST /v1/item/create` must be fast (p99 <100ms). Here saga seems like
 a reasonable solution.
 
@@ -264,12 +268,24 @@ a reasonable solution.
 
 - I think, this one is easiest to understand and most intuitive.
 
-- The idea is that if we have this complex multi-step logic and we clearly
-building state machine, let's create a service what will be responsible for this
+- The idea is that if we have this complex multi-step logic and are clearly
+  building a state machine, let's create a service that will be responsible for this
 workflow.
 
-- Any network call may fail. But failures are recoverable, maybe we can ask user
-even to _compensate_ them (e.g. put correct price and item will be created).
+- Any network call may fail. But failures are recoverable; maybe we can even ask
+  the user to _compensate_ for them (e.g. by entering the correct price so the
+  item can be created).
+
+```mermaid
+flowchart TD
+    START[Create item] --> ORCH[Saga orchestrator]
+    ORCH --> PRICE[Check price]
+    PRICE -->|retryable failure| RETRY[Retry later]
+    RETRY --> ORCH
+    PRICE -->|invalid price| COMP[Compensating action]
+    PRICE -->|success| MEASURE[Check measurements]
+    MEASURE -->|success| DONE[Item created]
+```
 
 ```txt
 saga_name: Item Creation
@@ -296,7 +312,7 @@ saga_name: Item Creation
 ^^^ 🚩
 
 either service itself, some timers or other service checks this item.
-and pushes it thgough pipeline of state machine.
+and pushes it through the state-machine pipeline.
 
 here, it is safe:
 
@@ -321,8 +337,9 @@ Step 3. Sometimes, either as part of the logic or by accident, there may be some
 invalid (undesired) state for an item. This way, we may issue a
 _compensating_* call.
 
-Also, because this is just a stable and some service, we may subscribe to async
-events and via transactional out/in-boxes update these items in transaction.
+Also, because this is a stable standalone service, we may subscribe to async
+events and update these items transactionally via transactional outbox/inbox
+patterns.
 
 * - compensating calls are sometimes used in the other meanings. I will
 leave them out of the scope of the article.
@@ -364,16 +381,16 @@ warns about it.
   saga is quite appropriate and significantly simplifies lots of things.
 
 - I have used PostgreSQL 'queues' quite a lot in the past, and lots of them would
-qualify as saga, because they included some other service acting in its own
-db transactionally and this event fixating in the 'queue'.
+qualify as sagas, because they included another service acting in its own
+database transaction and recording the event in the queue.
 
   On LinkedIn I mention 'Product Cards Transfer' products that I've contributed
   in Ozon.  And this project essentially was a classical, textbook orchestration
   based saga. CMS (system that actually created items there) = pure saga too!
 
   We just called them 'state machines'. At the same time, I find value in using
-  the specific notions other engineers understands. Also, 'state machine' has
-  kind of the different connotation, this is not a notion that describes the
+  the specific notions other engineers understand. Also, 'state machine' has a
+  different connotation; it does not describe the
   architectural level.
 
   Below is the project description from LinkedIn:
@@ -389,7 +406,7 @@ db transactionally and this event fixating in the 'queue'.
 
     The seller made a `request` - this transaction had its own saga.
     But also each `request` had >=1 items - each of them was also controlled in
-    a same way in a same service.
+    the same way in the same service.
 
 - This way, I have worked with sagas almost since day one of my professional life. 🙂
 But understood them really well only after 3 years into it.
