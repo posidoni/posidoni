@@ -11,14 +11,15 @@ infrastructure, and crypto/Web3 products.
 
 </div>
 
-## At a glance
+## Experience at a glance
 
-| Focus | Experience |
+| Company | Context |
 | --- | --- |
-| Backend | Go, PostgreSQL, Kafka, ScyllaDB |
-| Platform | Kubernetes, AWS, Prometheus, Grafana |
-| Domains | Pricing, payments, antifraud, Web3 |
-| Languages | English — C2 · Russian — Native |
+| [Ozon](https://github.com/ozontech) | Marketplace infrastructure · storage and Kafka |
+| [inDrive](https://github.com/inDriver) | Global mobility · recommended pricing |
+| [Avito](https://github.com/avito-tech) | Marketplace payments and antifraud |
+| Blum | Consumer crypto · high-load backend |
+| GotBit | Blockchain infrastructure · EVM, Solana, and TON |
 
 I work best on systems where correctness, throughput, and operational clarity
 matter. I’m currently independent and open to senior backend, infrastructure,
@@ -33,24 +34,6 @@ and SRE opportunities.
 | **Avito**<br>Payments & antifraud | Built scoring for **50%+ of payment traffic** and fixed a PgBouncer/PostgreSQL issue affecting daily credit-score recomputation for **2M+ users**, improving the result from **75% to 99.99%**. |
 | **Blum**<br>High-load backend | Rewrote a TypeScript MVP in Go for **22M DAU** and **200K concurrent users**, added Telegram Stars payments, and reduced a ScyllaDB footprint from **2.5 PB to about 100 TB**. |
 | **GotBit**<br>Multi-chain infrastructure | Led backend work on two production EVM forks based on `go-ethereum` across **24 servers**, alongside services for EVM, Solana, and TON. |
-
-## Technical stack
-
-**Core:** Go · PostgreSQL · Kafka · ScyllaDB · Kubernetes · AWS · Prometheus ·
-Grafana
-
-<details>
-<summary>Extended stack</summary>
-
-| Area | Tools |
-| --- | --- |
-| Backend | SQL · Python · TypeScript |
-| Data | PgBouncer · Redis · ClickHouse · MongoDB |
-| Platform | Helm · ArgoCD · Terraform · Temporal · Docker · Vault |
-| Observability | Thanos · Jaeger · OpenTracing |
-| Web3 | EVM · `go-ethereum` · Solidity · Solana · TON · DEX integrations |
-
-</details>
 
 ## Open source & writing
 
