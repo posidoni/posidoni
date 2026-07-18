@@ -5,21 +5,20 @@
 ### Independent Senior Backend Engineer · Go · Distributed Systems
 
 I build reliable backend systems for pricing, payments, antifraud, data
-infrastructure, and crypto/Web3 products.
-
-[View my CV](https://github.com/posidoni/cv/blob/main/build/Go_Backend_Engineer_Mikhail_Kuznetsov.pdf)
+infrastructure, and crypto/Web3 products. **5+ years in production backend
+engineering.**
 
 </div>
 
 ## Experience at a glance
 
-| Company | Context |
-| --- | --- |
-| [Ozon](https://github.com/ozontech) | Marketplace infrastructure · storage and Kafka |
-| [inDrive](https://github.com/inDriver) | Global mobility · recommended pricing |
-| [Avito](https://github.com/avito-tech) | Marketplace payments and antifraud |
-| Blum | Consumer crypto · high-load backend |
-| GotBit | Blockchain infrastructure · EVM, Solana, and TON |
+| Company | Dates | Context |
+| --- | --- | --- |
+| [Ozon](https://github.com/ozontech) | Jul 2020 – Oct 2022 | Marketplace infrastructure · storage and Kafka |
+| GotBit | Oct 2022 – Nov 2023 | Crypto market-making systems · EVM, Solana, and TON |
+| [Avito](https://github.com/avito-tech) | Nov 2023 – Jan 2025 | Marketplace payments and antifraud |
+| Blum | Feb 2025 – Aug 2025 | Consumer crypto · high-load backend |
+| [inDrive](https://github.com/inDriver) | Nov 2025 – Jun 2026 | Global mobility · recommended pricing |
 
 I work best on systems where correctness, throughput, and operational clarity
 matter. I’m currently independent and open to senior backend, infrastructure,
@@ -46,7 +45,9 @@ and SRE opportunities.
 
 <div align="center">
 
-[Email](mailto:mikhail.n.kuznetsov@gmail.com) · [CV](https://github.com/posidoni/cv/blob/main/build/Go_Backend_Engineer_Mikhail_Kuznetsov.pdf) · [LinkedIn](https://www.linkedin.com/in/mikenk/) · [Telegram](https://t.me/mikhailnkuz)
+[View my CV](https://github.com/posidoni/cv/blob/main/build/Go_Backend_Engineer_Mikhail_Kuznetsov.pdf)
+
+[Email](mailto:mikhail.n.kuznetsov@gmail.com) · [LinkedIn](https://www.linkedin.com/in/mikenk/) · [Telegram](https://t.me/mikhailnkuz)
 
 <sub>All opinions are my own and not the views of any current or past employer, contract counterparty, or other affiliated entity.</sub>
 
