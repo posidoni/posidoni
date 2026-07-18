@@ -32,14 +32,15 @@ COMMIT;
 
 Short answer: no.
 
-Unsigned Short: no, absolutely no, do not every try.
+Unsurprisingly, the short answer is: no. Absolutely not. Do not ever try.
 
 ## But let's try anyway and start with naive solution
 
-### Naive solution. Ok, let's call network inside tx. If anything goes wrong,
-we rollback
+### Naive solution: call the network inside the transaction
 
-tldr: this is a fatal mistake 🙂 Let me show you why.
+If anything goes wrong, we roll back.
+
+**TL;DR:** this is a fatal mistake 🙂 Let me show you why.
 
 ```txt
 
@@ -47,7 +48,7 @@ tldr: this is a fatal mistake 🙂 Let me show you why.
     (B) network call
 (A) COMMIT / ROLLBACK;
 
-^^ at the first glance, everything is may seem to be fine here. But the devil is in details.
+^^ At first glance, everything may seem fine here. But the devil is in the details.
 ```
 
 1. How long network call will take? Do we have any guarantees (SLAs)?
@@ -55,7 +56,7 @@ If it takes too long and there are enough such requests, PSQL will hang,
 because there are not anough connections available to the DBs.
 
 2. Why are we so sure application will not just shut down after B? No,
-really. And what will we have? Best case: uncommited tx, but successfull
+really. And what will we have? Best case: uncommitted tx, but successful
 rpc call. At worst: again, DB will hang, for example if there are many
 txes stuck on this commit/rollback step.
 
@@ -65,8 +66,8 @@ engineers, this is just an assumption). What if we have a 'slow-lorry'
 style attack?
 
 4. Also think about resilience and cascade failures. Here DB / network call
-are so tigthlyh coupled, that if one fails, this will lead to cascadee
-failure. Even if e.g. (B) works perferctly fine and there are some DB
+are so tightly coupled that if one fails, this will lead to cascade
+failure. Even if e.g. (B) works perfectly fine and there are some DB
 issues.
 
 5. Also, here we have at least 3 round trips - do we actually want them?
@@ -104,12 +105,12 @@ it should be assumed that any network call is unreliable and may fail.
 ^^ but something happens with the network and response is never
 received. This illustrates simple network segmentation.
 
-Response could also be delievered partially.
+Response could also be delivered partially.
 Or, let's say, server A is shut down.
 
 As you see, many things could go wrong with any network call.
 
-In professional data centers these troubles are not so commmon, but the
+In professional data centers these troubles are not so common, but the
 traffic is so high, that:
 
 if that chance of network seg. is 1e-6 (0.000001%)
@@ -118,28 +119,31 @@ lost/corrupted.
 
 ```
 
-- Demo 2. More realistic example. Network calls succeeds, but we can't accept it
+- **Demo 2: a more realistic example where the network call succeeds, but we
+  cannot accept the response.**
 
 ```txt
 
 [Server A] --- RPC REQUEEST -> [Server B]
-timeout = 1±9ms second
+timeout = 1–9 ms
 ^^ 🚩 in real life, all requests have some sort of timeouts or deadlines.
 
 This is common sense both for the:
 
-- in-cluster trusted APIs (in this case timeout may be set accoirding to known service NFRs)
+- in-cluster trusted APIs (in this case, the timeout may be set according to the
+  known service NFRs)
 - external  APIs (usually set under some SLA or just by common sense, as external network = PvP enabled 💀)
 
 📘 SRE Hint: also, jitters are quite a good idea.
 
-Alright, we made an RPC request. Everything is perferctly fine, but
+Alright, we made an RPC request. Everything is perfectly fine, but
 Server B is just slow. It received our request, executed logic perfectly
 fine, but time has already run out, A closed the socket (context deadline
 exceeded) and B can never deliver response to A.
 
 This is also extremely common in production e.g. when we are rolling new release
-with canary. Very small, but noticable percent of requests is usually  lost,
+with a canary. A very small but noticeable percentage of requests is usually
+lost,
 because the pod that had received them is dead and is replaced by the new one.
 ```
 
@@ -208,7 +212,7 @@ does it end? When we show the green screen?
 The truth is that this whole example is a complex transaction that must be
 carried out carefully without losing any step. On the checkout page, there is
 already some cart - we can't lose an item. Also after the payment there are
-delivery, return of item A withing a week, return of item B within 2 weeks - all
+delivery, return of item A within a week, return of item B within 2 weeks - all
 under same transaction.
 
 In this tx, at least ~10 services are directly involved each of them having very
@@ -225,9 +229,9 @@ it works without major errors.
 > We may _not even care about transactions in a single DB_, the goal is to just
 > provide good UX and solve business problem.
 
-### How make something with 10 network calls _transactional_?
+### How do we make something with 10 network calls _transactional_?
 
-Here, let's take a simpler example and make it into sage.
+Here, let's take a simpler example and make it into a saga.
 
 ```txt
 
@@ -270,23 +274,23 @@ even to _compensate_ them (e.g. put correct price and item will be created).
 ```txt
 saga_name: Item Creation
 
-[Saga Orchestrator] <-- Databse (state_machine)
+[Saga Orchestrator] <-- Database (state_machine)
 [ Item_id, state, error, retries, created_at, updated_at ]
-1     created  nulll    0       2021-01-01  2021-01-02
-2     created  nulll    0       2021-01-01  2021-01-02
+1     created  null    0       2021-01-01  2021-01-02
+2     created  null    0       2021-01-01  2021-01-02
 3     checking_price  network err    3       2021-01-01  2021-01-02
-4     created  nulll    0       2021-01-01  2021-01-02
-5     created  nulll    0       2021-01-01  2021-01-02
+4     created  null    0       2021-01-01  2021-01-02
+5     created  null    0       2021-01-01  2021-01-02
 ```
 
 Step 1. Define a saga orchestration service. This service has a (usually) RDBMS
-that allows transactional updates. This service stores  the state of transaction
-(in this case - sate of 'item' being created).
+that allows transactional updates. This service stores the state of the
+transaction (in this case, the state of the item being created).
 
 ```txt
 saga_name: Item Creation
 
-[Saga Orchestrator] <-- Databse (state_machine)
+[Saga Orchestrator] <-- Database (state_machine)
 [ Item_id, state, error, retries, created_at, updated_at ]
 3     checking_price  network err    3       2021-01-01  2021-01-02
 ^^^ 🚩
@@ -300,21 +304,22 @@ here, it is safe:
 2. only if full success, update item
 ```
 
-Step 2.  The idea is to push items through a state machine. Each network call
-may fail, but we should (where appropriate) retry those fails. The failure may
+Step 2. The idea is to push items through a state machine. Each network call
+may fail, but we should (where appropriate) retry those failures. The failure may
 be terminal.
 
 ```txt
 saga_name: Item Creation
 
-[Saga Orchestrator] <-- Databse (state_machine)
+[Saga Orchestrator] <-- Database (state_machine)
 [ Item_id, state, error, retries, created_at, updated_at ]
 3     checking_price   invalid_price       2021-01-01  2021-01-02
 ^^^ 🚩
 ```
 
-Step 3.   Sometimes either as a part of logic, or by accident there may be some
-invalid (undesired) state for item. This way,  we may issue _compensating_* call.
+Step 3. Sometimes, either as part of the logic or by accident, there may be some
+invalid (undesired) state for an item. This way, we may issue a
+_compensating_* call.
 
 Also, because this is just a stable and some service, we may subscribe to async
 events and via transactional out/in-boxes update these items in transaction.
@@ -322,17 +327,17 @@ events and via transactional out/in-boxes update these items in transaction.
 * - compensating calls are sometimes used in the other meanings. I will
 leave them out of the scope of the article.
 
-### Choreography based Saga
+### Choreography-based Saga
 
-Choreography saga derives from the same ideas, but as in microservices
+Choreography-based sagas derive from the same ideas, but as in microservices
 architecture it is assumed each service has its own database, in theory,
 services could just communicate without needing a central orchestration service.
 
 In this approach, services communicate directly using events (e.g., via Kafka).
 Each service updates its state independently and triggers subsequent steps by publishing events.
 
-There is a lot said about the pros and cons of each, but here also team dynamics
-plays a major role, in my opinion. Also this saga (to me) seems a much harder to
+There is a lot said about the pros and cons of each, but team dynamics also
+play a major role, in my opinion. This type of saga also seems much harder to
 reason about and implement.
 
 While this eliminates the need for a central orchestrator, it is harder to reason about and debug.
@@ -350,7 +355,7 @@ things that allow us to do our best to finish each tx gracefully.
 
 ## Why is saga important?
 
-- Generally, I would describe Avito fintech as a large 3-layerd saga :)
+- Generally, I would describe Avito fintech as a large three-layered saga :)
 Despite the fact that [public Avito book has specifically recommended to avoid
 this pattern (as far as it is stated, due to high complexity)](https://github.com/avito-tech/playbook/blob/master/development-principles.md) or at least seriously
 warns about it.
@@ -358,7 +363,7 @@ warns about it.
   However, I would say for fintech this architecture with orchestration based
   saga is quite appropriate and significantly simplifies lots of things.
 
-- I have used PSQL 'queues'  quite a lot in past, and  lots of them would
+- I have used PostgreSQL 'queues' quite a lot in the past, and lots of them would
 qualify as saga, because they included some other service acting in its own
 db transactionally and this event fixating in the 'queue'.
 
@@ -386,7 +391,7 @@ db transactionally and this event fixating in the 'queue'.
     But also each `request` had >=1 items - each of them was also controlled in
     a same way in a same service.
 
-- This way, I have worked with sagas almost since day 1 at my professional life. 🙂
+- This way, I have worked with sagas almost since day one of my professional life. 🙂
 But understood them really well only after 3 years into it.
 
 ## Credits
