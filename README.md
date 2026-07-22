@@ -45,8 +45,6 @@ and SRE opportunities.
 
 <div align="center">
 
-[View my CV](https://github.com/posidoni/cv/blob/main/build/Go_Backend_Engineer_Mikhail_Kuznetsov.pdf)
-
 [Email](mailto:mikhail.n.kuznetsov@gmail.com) · [LinkedIn](https://www.linkedin.com/in/mikenk/) · [Telegram](https://t.me/mikhailnkuz)
 
 <sub>All opinions are my own and not the views of any current or past employer, contract counterparty, or other affiliated entity.</sub>
